@@ -253,6 +253,12 @@ spec:
 
     ```oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default -n $(oc project -q)```
     
+Another option for using ConfigMaps, is to mount them into the Pod running the Spring Cloud Kubernetes application
+and have Spring Cloud Kubernetes read them from the file system.
+This behavior is controlled by the `spring.cloud.kubernetes.config.paths` property and can be used in
+addition to or instead of the mechanism described earlier.
+Multiple (exact) file paths can be specified in `spring.cloud.kubernetes.config.paths` by using the `,` delimiter 
+    
 **Properties:**
 
 | Name                                     | Type    | Default                    | Description
@@ -260,7 +266,7 @@ spec:
 | spring.cloud.kubernetes.config.enabled   | Boolean | true                       | Enable Secrets PropertySource
 | spring.cloud.kubernetes.config.name      | String  | ${spring.application.name} | Sets the name of ConfigMap to lookup
 | spring.cloud.kubernetes.config.namespace | String  | Client namespace           | Sets the Kubernetes namespace where to lookup
-| spring.cloud.kubernetes.config.paths     | List    | null                       | Sets the paths where ConfigMaps are mounted
+| spring.cloud.kubernetes.config.paths     | List    | []                         | Sets the paths of mounted ConfigMaps that can be used in addition to or instead of the ConfigMaps read from the Kubernetes API
 | spring.cloud.kubernetes.config.enableApi | Boolean | true                       | Enable/Disable consuming ConfigMaps via APIs
 
 
